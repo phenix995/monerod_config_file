@@ -1,0 +1,17 @@
+cat > $HOME/monerod.service << EOF
+[Unit]
+Description=monerod
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/var/lib/monero/monerod.pid
+ExecStart=/usr/local/bin/monerod --config-file /var/lib/monero/monerod.conf --detach --pidfile /var/lib/monero/monerod.pid
+User=monero
+Group=monero
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
